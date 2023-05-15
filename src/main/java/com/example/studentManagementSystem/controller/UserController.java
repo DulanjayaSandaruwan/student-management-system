@@ -1,8 +1,6 @@
 package com.example.studentManagementSystem.controller;
 
-import com.example.studentManagementSystem.dto.StudentDTO;
 import com.example.studentManagementSystem.dto.UserDTO;
-import com.example.studentManagementSystem.service.NotificationService;
 import com.example.studentManagementSystem.service.UserService;
 import com.example.studentManagementSystem.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
