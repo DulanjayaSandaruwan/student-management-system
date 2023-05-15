@@ -30,7 +30,6 @@ public class JWTUtil {
                 .compact();
     }
 
-
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }

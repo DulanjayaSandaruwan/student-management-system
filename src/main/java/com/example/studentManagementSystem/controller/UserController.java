@@ -1,11 +1,10 @@
 package com.example.studentManagementSystem.controller;
 
-import com.example.studentManagementSystem.dto.UserDTO;
+import com.example.studentManagementSystem.config.Encoder;
+import com.example.studentManagementSystem.dto.UserReqDTO;
 import com.example.studentManagementSystem.service.UserService;
 import com.example.studentManagementSystem.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +25,14 @@ public class UserController {
     @Autowired
     private ResponseUtil responseUtil;
 
-    @PostMapping(value = "/loginUser")
-    public ResponseEntity loginUser(@RequestBody UserDTO userDTO) {
-        userService.loginUser(userDTO);
-        return new ResponseEntity(responseUtil, HttpStatus.ACCEPTED);
+    @PostMapping("/login")
+    public ResponseUtil validateAuthentication(@RequestBody UserReqDTO userReqDTO) {
+        System.out.println(new Encoder().encode(userReqDTO.getPassword()));
+
+        try {
+            return userService.authenticationLogin(userReqDTO);
+        } catch (Exception e) {
+            return new ResponseUtil("500", e.getMessage(), null);
+        }
     }
 }
